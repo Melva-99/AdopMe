@@ -1,19 +1,23 @@
 import React from "react";
 import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text, Image, Input, Button } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
 import Logo from "../shared/Logo";
+import SigninForm from "../components/forms/SigninForm";
+import theme from "../theme";
+import Alert from "../shared/Alert";
 
 const { width, height } = Dimensions.get("screen");
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation,route }) => {
+  const { userCreated } = route.params;
   return (
     <View style={styles.container}>
       <Logo />
-      <Input placeholder="Email" leftIcon={<Icon name="envelope" />} />
-      <Input placeholder="Password" leftIcon={<Icon name="lock" />} />
+      {userCreated ? (
+        <Alert type="success" title="User created! You can now sign in!" />
+      ) : null}
+      <SigninForm />
       <Text style={styles.forgotPassword}>Forgot your password?</Text>
-      <Button title="Signin" />
       <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
         <Text>Don't have an account? Sign up</Text>
       </TouchableOpacity>
@@ -26,6 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 10,
+    backgroundColor: theme.colors.backgroundWhite,
   },
   forgotPassword: {
     textAlign: "right",
