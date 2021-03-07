@@ -5,6 +5,8 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { validate } from "email-validator";
 import { firebase } from "../../firebase";
 import Alert from "../../shared/Alert";
+import theme from "../../theme/index"
+
 
 const SigninForm = () => {
   const [email, setEmail] = useState("");
@@ -38,8 +40,8 @@ const SigninForm = () => {
   return (
     <View>
       {error ? <Alert title={error} type="error" /> : null}
-      <Input
-        placeholder="Email"
+      <Input inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
+        placeholder="   Email"
         leftIcon={<Icon name="envelope" />}
         value={email}
         onChangeText={setEmail}
@@ -48,25 +50,41 @@ const SigninForm = () => {
         }}
         errorMessage={
           emailError
-            ? "Por favor ingresa tu cuenta de correo electrónico"
+            ? "Please, write your email"
             : null
         }
       />
-      <Input
-        placeholder="Password"
+      <Input inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
+        placeholder="   Password"
         leftIcon={<Icon name="lock" />}
         value={password}
         onChangeText={setPassword}
         onBlur={() => {
           handleVerify("password");
         }}
-        errorMessage={passwordError ? "Por favor ingresa tu contraseña" : null}
+        errorMessage={passwordError ? "Please, write your password" : null}
       />
-      <Button title="Signin" onPress={handleSignin} />
+      <Button buttonStyle={styles.button} title="Sign In" onPress={handleSignin} />
+      
+      
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  button: {
+    width: 150,
+    backgroundColor: theme.colors.secondary,
+    margin: 5,
+    borderRadius: 50,
+    alignSelf: "Center",
+  },
+  input:{
+    borderRadius: 50,
+    borderStyle: "Solid",
+    border:1,
+    
+  }
+});
 
 export default SigninForm;
