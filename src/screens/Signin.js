@@ -1,6 +1,10 @@
 import React from "react";
 import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
+<<<<<<< HEAD
 import { Text, Image, Input, Button } from "react-native-elements";
+=======
+import { Text,Button } from "react-native-elements";
+>>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
 import Logo from "../shared/Logo";
 import SigninForm from "../components/forms/SigninForm";
 import theme from "../theme";
@@ -19,7 +23,20 @@ const Login = ({ navigation, route }) => {
       ) : null}
       <SigninForm navigation={navigation} />
       <Button buttonStyle={styles.button} title="Create Account" onPress={() => navigation.navigate("Signup")} />
+<<<<<<< HEAD
       <Text style={styles.forgotPassword}>Forgot your password?</Text>
+=======
+      
+
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("forgotPassword");
+        }}
+      >
+        <Text style={styles.forgotPassword}>Forgot your password?</Text>
+      </TouchableOpacity>
+
+>>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
       <Button icon={<Icon name="google-plus" size={15} color="white" />} iconLeft buttonStyle={styles.buttonGoogle} title=" Sign In with Google" />
       {/*<TouchableOpacity onPress={() => navigation.navigate("Signup")}>
         <Text>Don't have an account? Sign up</Text>
@@ -37,6 +54,7 @@ const styles = StyleSheet.create({
   },
   forgotPassword: {
     textAlign: "center",
+<<<<<<< HEAD
   },
   button: {
     width: 220,
@@ -45,6 +63,16 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignSelf: "center",
   },
+=======
+  },
+  button: {
+    width: 220,
+    backgroundColor: theme.colors.gray,
+    margin: 5,
+    borderRadius: 50,
+    alignSelf: "center",
+  },
+>>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
   buttonGoogle: {
     width: 220,
     backgroundColor: theme.colors.red,
@@ -53,5 +81,4 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   }
 });
-
 export default Login;
