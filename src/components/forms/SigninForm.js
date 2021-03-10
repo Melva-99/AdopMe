@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View} from "react-native";
 import { Input, Button } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { validate } from "email-validator";
 import { firebase } from "../../firebase";
 import Alert from "../../shared/Alert";
@@ -30,12 +29,27 @@ const SigninForm = ({navigation}) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => {navigation.navigate("Home")})
+      .then((response) => {
+        const uid = response.user.uid;
+        const usersRef = firebase.firestore().collection("users");
+        usersRef
+          .doc(uid)
+          .get()
+          .then((firestoreDocument) => {
+            if (!firestoreDocument.exists) {
+              setError("User does not exist in the database!");
+              return;
+            }
+            const user = firestoreDocument.data();
+
+            navigation.navigate("Home", { user });
+          });
+      })
       .catch((error) => {
-        console.log(error);
         setError(error.message);
       });
   };
+
 
   return (
     <View style={styles.container}>
