@@ -55,12 +55,16 @@ export default function App() {
             options={{headerStyle:{backgroundColor:"#085A75"} }}/>
 =======
             />
-            <Stack.Screen name="Signup" component={Signup}  options={{headerStyle:{backgroundColor:"#085A75"} }} />
+            <Stack.Screen name="Signup" component={Signup}  options={{headerShown: false, headerStyle:{backgroundColor:"#085A75"} }} />
             <Stack.Screen style={styles.color} name="Home" component={Home}  
-            options={{headerStyle:{backgroundColor:"#085A75"} }} 
+            options={{headerShown: false,headerStyle:{backgroundColor:"#085A75"} }} 
             initialParams={{ user: user }}/>
+<<<<<<< HEAD
             <Stack.Screen name="forgotPassword" component={forgotPassword}  options={{headerStyle:{backgroundColor:"#085A75"} }} />
 >>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
+=======
+            <Stack.Screen name="forgotPassword" component={forgotPassword}  options={{headerShown: false,headerStyle:{backgroundColor:"#085A75"} }} />
+>>>>>>> 5c050fef00b95814db63eb0a10821d2bca24ab48
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
