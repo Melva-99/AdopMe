@@ -1,22 +1,33 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet} from "react-native";
 import { ThemeProvider } from "react-native-elements";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Signin from "./src/screens/Signin";
 import Signup from "./src/screens/Signup";
+import Home from "./src/screens/Home";
+import forgotPassword from "./src/screens/forgotPassword";
+import theme from "./src/theme";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <SafeAreaProvider>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Signin" component={Signin} />
-            <Stack.Screen name="Signup" component={Signup} />
+            <Stack.Screen
+              name="Signin"
+              component={Signin}
+              initialParams={{ userCreated: false }}
+              options={{ headerShown: false, headerStyle:{backgroundColor:"#085A75"} }}
+            />
+            <Stack.Screen name="Signup" component={Signup}  options={{headerStyle:{backgroundColor:"#085A75"} }} />
+            <Stack.Screen style={styles.color} name="Home" component={Home}  
+            options={{headerStyle:{backgroundColor:"#085A75"} }}/>
+            <Stack.Screen name="forgotPassword" component={forgotPassword}  options={{headerStyle:{backgroundColor:"#085A75"} }} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
@@ -31,4 +42,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  color:{
+    color: "#fff"
+  }
 });

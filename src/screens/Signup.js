@@ -2,29 +2,37 @@ import React from "react";
 import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Button, Input, Text } from "react-native-elements";
 import Logo from "../shared/Logo";
+import SignupForm from "../components/forms/SignupForm";
+import theme from "../theme";
 
 const { width, height } = Dimensions.get("screen");
 
 const Signup = ({ navigation }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Logo />
-      <Input placeholder="Full name" />
-      <Input placeholder="Email" />
-      <Input placeholder="Password" />
-      <Input placeholder="Confirm password" />
-      <Button title="Create account" />
+      <SignupForm navigation={navigation} />
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
         }}
       >
-        <Text>Already got an account? Sign in</Text>
+        <Text style={styles.signIn}>Already got an account? Sign in</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 10,
+    backgroundColor: theme.colors.backgroundWhite,
+  },
+  signIn: {
+    textAlign: "center",
+  },
+});
 
 export default Signup;
