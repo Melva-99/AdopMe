@@ -8,6 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Signin from "./src/screens/Signin";
 import Signup from "./src/screens/Signup";
 import theme from "./src/theme";
+import Home from "./src/screens/Home";
 
 const Stack = createStackNavigator();
 
@@ -21,9 +22,12 @@ export default function App() {
               name="Signin"
               component={Signin}
               initialParams={{ userCreated: false }}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, headerStyle:{backgroundColor:"#085A75"} }}
+
             />
-            <Stack.Screen name="Signup" component={Signup} />
+            <Stack.Screen name="Signup" component={Signup}  options={{headerStyle:{backgroundColor:"#085A75"} }} />
+            <Stack.Screen style={styles.color} name="Home" component={Home}  
+            options={{headerStyle:{backgroundColor:"#085A75"} }}/>
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

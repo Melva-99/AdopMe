@@ -8,7 +8,7 @@ import Alert from "../../shared/Alert";
 import theme from "../../theme/index"
 
 
-const SigninForm = () => {
+const SigninForm = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -30,7 +30,7 @@ const SigninForm = () => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((response) => console.log(response))
+      .then(() => {navigation.navigate("Home")})
       .catch((error) => {
         console.log(error);
         setError(error.message);
@@ -38,11 +38,10 @@ const SigninForm = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       {error ? <Alert title={error} type="error" /> : null}
       <Input inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
         placeholder="   Email"
-        leftIcon={<Icon name="envelope" />}
         value={email}
         onChangeText={setEmail}
         onBlur={() => {
@@ -56,7 +55,7 @@ const SigninForm = () => {
       />
       <Input inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
         placeholder="   Password"
-        leftIcon={<Icon name="lock" />}
+        secureTextEntry
         value={password}
         onChangeText={setPassword}
         onBlur={() => {
@@ -73,18 +72,20 @@ const SigninForm = () => {
 
 const styles = StyleSheet.create({
   button: {
-    width: 150,
+    width: 110,
     backgroundColor: theme.colors.secondary,
-    margin: 5,
+    margin: 15,
     borderRadius: 50,
     alignSelf: "Center",
+    
   },
   input:{
+    marginTop:50,
     borderRadius: 50,
     borderStyle: "Solid",
     border:1,
-    
-  }
+  },
+  
 });
 
 export default SigninForm;
