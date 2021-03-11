@@ -9,7 +9,7 @@ import Signup from "./src/screens/Signup";
 import Home from "./src/screens/Home";
 import forgotPassword from "./src/screens/forgotPassword";
 import theme from "./src/theme";
-
+import GoogleIn from "./src/screens/GoogleIn"
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -28,6 +28,7 @@ export default function App() {
             <Stack.Screen style={styles.color} name="Home" component={Home}  
             options={{headerStyle:{backgroundColor:"#085A75"} }}/>
             <Stack.Screen name="forgotPassword" component={forgotPassword}  options={{headerStyle:{backgroundColor:"#085A75"} }} />
+            <Stack.Screen name="GoogleIn" component={GoogleIn}  options={{headerStyle:{backgroundColor:"#085A75"} }} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

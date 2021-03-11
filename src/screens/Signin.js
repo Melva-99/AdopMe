@@ -29,7 +29,7 @@ const Login = ({ navigation, route }) => {
         <Text style={styles.forgotPassword}>Forgot your password?</Text>
       </TouchableOpacity>
 
-      <Button icon={<Icon name="google-plus" size={15} color="white" />} iconLeft buttonStyle={styles.buttonGoogle} title=" Sign In with Google" />
+      <Button icon={<Icon name="google-plus" size={15} color="white" />} onPress={() => navigation.navigate("GoogleIn")} iconLeft buttonStyle={styles.buttonGoogle} title=" Sign In with Google" />
       {/*<TouchableOpacity onPress={() => navigation.navigate("Signup")}>
         <Text>Don't have an account? Sign up</Text>
       </TouchableOpacity>*/}
