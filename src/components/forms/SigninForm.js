@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-<<<<<<< HEAD
-import { StyleSheet, View, Text } from "react-native";
-import { Input, Button } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
-=======
 import { StyleSheet, View} from "react-native";
 import { Input, Button } from "react-native-elements";
->>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
 import { validate } from "email-validator";
 import { firebase } from "../../firebase";
 import Alert from "../../shared/Alert";
@@ -35,11 +29,6 @@ const SigninForm = ({navigation}) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-<<<<<<< HEAD
-      .then(() => {navigation.navigate("Home")})
-      .catch((error) => {
-        console.log(error);
-=======
       .then((response) => {
         const uid = response.user.uid;
         const usersRef = firebase.firestore().collection("users");
@@ -57,15 +46,10 @@ const SigninForm = ({navigation}) => {
           });
       })
       .catch((error) => {
->>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
         setError(error.message);
       });
   };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
   return (
     <View style={styles.container}>
       {error ? <Alert title={error} type="error" /> : null}
