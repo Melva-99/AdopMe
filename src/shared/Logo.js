@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   logo: {
-    width: width * 0.6,
-    height: height * 0.3,
+    width: width * 0.5,
+    height: height * 0.25,
     resizeMode: "contain",
   },
 });
