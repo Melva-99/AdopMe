@@ -5,7 +5,10 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { firebase } from "../../firebase";
 import { validate } from "email-validator";
 import Alert from "../../shared/Alert";
+<<<<<<< HEAD
+=======
 import theme from "../../theme/index"
+>>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
 
 const SignupForm = ({ navigation }) => {
   const [fullname, setFullname] = useState("");
@@ -79,8 +82,13 @@ const SignupForm = ({ navigation }) => {
     <View>
       {error ? <Alert type="error" title={error} /> : null}
       <Input
+<<<<<<< HEAD
+        placeholder="Full name"
+        leftIcon={<Icon name="user" />}
+=======
         inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
         placeholder="   Full name"
+>>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
         value={fullname}
         onChangeText={setFullname}
         onBlur={() => {
@@ -91,8 +99,13 @@ const SignupForm = ({ navigation }) => {
         }
       />
       <Input
+<<<<<<< HEAD
+        placeholder="Email"
+        leftIcon={<Icon name="envelope" />}
+=======
         inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
         placeholder="   Email"
+>>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
@@ -104,8 +117,13 @@ const SignupForm = ({ navigation }) => {
         }
       />
       <Input
+<<<<<<< HEAD
+        placeholder="Password"
+        leftIcon={<Icon name="lock" />}
+=======
         inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
         placeholder="   Password"
+>>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
         value={password}
         onChangeText={setPassword}
         secureTextEntry
@@ -119,9 +137,15 @@ const SignupForm = ({ navigation }) => {
             : ""
         }
       />
+<<<<<<< HEAD
+      <Input
+        placeholder="Confirm password"
+        leftIcon={<Icon name="lock" />}
+=======
       <Input 
         inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
         placeholder="   Confirm password"
+>>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
         value={confirmPassword}
         onChangeText={setConfirmPassword}
         secureTextEntry
@@ -135,11 +159,18 @@ const SignupForm = ({ navigation }) => {
             : ""
         }
       />
+<<<<<<< HEAD
+      <Button title="Create account" onPress={handleSignup} />
+=======
       <Button buttonStyle={styles.button} title="Create account" onPress={handleSignup} />
+>>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
     </View>
   );
 };
 
+<<<<<<< HEAD
+const styles = StyleSheet.create({});
+=======
 const styles = StyleSheet.create({
   button: {
     width: 220,
@@ -155,5 +186,6 @@ const styles = StyleSheet.create({
     border:1,
   },
 });
+>>>>>>> 526addab31d8e27da152ef32eb87a6f938412973
 
 export default SignupForm;

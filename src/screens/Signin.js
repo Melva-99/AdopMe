@@ -20,7 +20,6 @@ const Login = ({ navigation, route }) => {
       <SigninForm navigation={navigation} />
       <Button buttonStyle={styles.button} title="Create Account" onPress={() => navigation.navigate("Signup")} />
       
-
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("forgotPassword");
@@ -30,6 +29,7 @@ const Login = ({ navigation, route }) => {
       </TouchableOpacity>
 
       <Button icon={<Icon name="google-plus" size={15} color="white" />} onPress={() => navigation.navigate("GoogleIn")} iconLeft buttonStyle={styles.buttonGoogle} title=" Sign In with Google" />
+
       {/*<TouchableOpacity onPress={() => navigation.navigate("Signup")}>
         <Text>Don't have an account? Sign up</Text>
       </TouchableOpacity>*/}
