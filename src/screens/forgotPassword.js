@@ -75,7 +75,7 @@ const forgotPassword = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    button: {
+   button: {
         width: 110,
         backgroundColor: theme.colors.secondary,
         margin: 15,

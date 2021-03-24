@@ -5,7 +5,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { firebase } from "../../firebase";
 import { validate } from "email-validator";
 import Alert from "../../shared/Alert";
-import theme from "../../theme/index"
 
 const SignupForm = ({ navigation }) => {
   const [fullname, setFullname] = useState("");
@@ -80,8 +79,8 @@ const SignupForm = ({ navigation }) => {
     <View>
       {error ? <Alert type="error" title={error} /> : null}
       <Input
-        inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
-        placeholder="   Full name"
+        placeholder="Full name"
+        leftIcon={<Icon name="user" />}
         value={fullname}
         onChangeText={setFullname}
         onBlur={() => {
@@ -92,8 +91,8 @@ const SignupForm = ({ navigation }) => {
         }
       />
       <Input
-        inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
-        placeholder="   Email"
+        placeholder="Email"
+        leftIcon={<Icon name="envelope" />}
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
@@ -105,8 +104,8 @@ const SignupForm = ({ navigation }) => {
         }
       />
       <Input
-        inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
-        placeholder="   Password"
+        placeholder="Password"
+        leftIcon={<Icon name="lock" />}
         value={password}
         onChangeText={setPassword}
         secureTextEntry
@@ -120,9 +119,9 @@ const SignupForm = ({ navigation }) => {
             : ""
         }
       />
-      <Input 
-        inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
-        placeholder="   Confirm password"
+      <Input
+        placeholder="Confirm password"
+        leftIcon={<Icon name="lock" />}
         value={confirmPassword}
         onChangeText={setConfirmPassword}
         secureTextEntry
@@ -136,25 +135,11 @@ const SignupForm = ({ navigation }) => {
             : ""
         }
       />
-      <Button buttonStyle={styles.button} title="Create account" onPress={handleSignup} />
+      <Button title="Create account" onPress={handleSignup} />
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    width: 220,
-    backgroundColor: theme.colors.secondary,
-    margin: 15,
-    borderRadius: 50,
-    alignSelf: "Center",
-  },
-  input:{
-    marginTop:30,
-    borderRadius: 50,
-    borderStyle: "Solid",
-    border:1,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default SignupForm;

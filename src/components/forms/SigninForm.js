@@ -1,19 +1,28 @@
-import React, { useState } from "react";
-import { StyleSheet, View} from "react-native";
-import { Input, Button } from "react-native-elements";
+import React, { useContext, useEffect, useState } from "react";
+import { StyleSheet, View, Text } from "react-native";
+import { Button, Caption, TextInput } from "react-native-paper";
 import { validate } from "email-validator";
-import { firebase } from "../../firebase";
 import Alert from "../../shared/Alert";
-import theme from "../../theme/index"
+import { Context as AuthContext } from "../../providers/AuthContext";
 
-
-const SigninForm = ({navigation}) => {
+const SigninForm = () => {
+  // Implementación del Context para funcionalidades de autenticación
+  const { state, signin } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [error, setError] = useState("");
 
+  useEffect(() => {
+    setError(state.errorMessage);
+  }, [state.errorMessage]);
+
+  useEffect(() => {
+    console.log(state.user);
+  }, [state.user]);
+
+  // Verifica que se ingresan los datos del email y el password
   const handleVerify = (input) => {
     if (input === "email") {
       if (!email) setEmailError(true);
@@ -26,80 +35,52 @@ const SigninForm = ({navigation}) => {
   };
 
   const handleSignin = () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((response) => {
-        const uid = response.user.uid;
-        const usersRef = firebase.firestore().collection("users");
-        usersRef
-          .doc(uid)
-          .get()
-          .then((firestoreDocument) => {
-            if (!firestoreDocument.exists) {
-              setError("User does not exist in the database!");
-              return;
-            }
-            const user = firestoreDocument.data();
-
-            navigation.navigate("Home", { user });
-          });
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
+    // Iniciar sesión implementado el Contexto de autenticación
+    signin(email, password);
   };
 
-
   return (
-    <View style={styles.container}>
+    <View>
       {error ? <Alert title={error} type="error" /> : null}
-      <Input inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
-        placeholder="   Email"
+      <TextInput
+        mode="outlined"
+        label="Email"
+        autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
         onBlur={() => {
           handleVerify("email");
         }}
-        errorMessage={
-          emailError
-            ? "Please, write your email"
-            : null
-        }
+        error={emailError}
       />
-      <Input inputContainerStyle={{borderBottomWidth:0}} inputStyle={styles.input}
-        placeholder="   Password"
+      {emailError && (
+        <Caption>Por favor ingresa tu cuenta de correo electrónico</Caption>
+      )}
+      <TextInput
+        mode="outlined"
+        label="Password"
+        autoCapitalize="none"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
         onBlur={() => {
           handleVerify("password");
         }}
-        errorMessage={passwordError ? "Please, write your password" : null}
+        error={passwordError}
       />
-      <Button buttonStyle={styles.button} title="Sign In" onPress={handleSignin} />
-      
-      
+      {passwordError && <Caption>Por favor ingresa tu contraseña</Caption>}
+      <Button mode="contained" style={styles.button} onPress={handleSignin}>
+        Signin
+      </Button>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    width: 110,
-    backgroundColor: theme.colors.secondary,
-    margin: 15,
-    borderRadius: 50,
-    alignSelf: "Center",
-    
+    marginTop: 20,
+    marginBottom: 20,
   },
-  input:{
-    marginTop:50,
-    borderRadius: 50,
-    borderStyle: "Solid",
-    border:1,
-  },
-  
 });
 
 export default SigninForm;

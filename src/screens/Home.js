@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Text } from "react-native-elements";
 import { StyleSheet, View, } from "react-native";
 import theme from "../theme";
+import { Context as AuthContext } from "../providers/AuthContext";
 
 const Home = ({ navigation }) => {
+  const { signout } = useContext(AuthContext);
   return (
+    <>
     <View style={styles.container}>
       <Text style={styles.titulo}>AdopMe</Text>
       <Button buttonStyle={styles.button} title="Adopt"/>
       <Button buttonStyle={styles.button} title="Put up for adoption"/>
       <Button buttonStyle={styles.button} title="Donate"/>
-      <Button buttonStyle={styles.button} title="Sign Out" onPress={() => navigation.navigate("Signin")}/>
+      <Button buttonStyle={styles.button} title="Sign Out" onPress={() => {signout()}}/>
     </View>
+    </>
   );
 };
 
