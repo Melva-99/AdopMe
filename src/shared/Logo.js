@@ -1,22 +1,19 @@
 import React from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
-import { Image } from "react-native-elements";
+import { Dimensions, Image, StyleSheet, View } from "react-native";
+import Logo2 from "../../assets/Logo2.png";
 
 const { width, height } = Dimensions.get("screen");
 
 const Logo = () => {
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.logo}
-        source={{ uri: require("../../assets/Logo2.png") }}
-      />
+      <Image style={styles.logo} source={Logo2} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     alignSelf: "center",
   },
   logo: {
