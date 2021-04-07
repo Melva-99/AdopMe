@@ -17,7 +17,7 @@ const Signup = ({ navigation }) => {
           navigation.goBack();
         }}
       >
-        <Text style={styles.signIn}>Already got an account? Sign in</Text>
+        <Text style={styles.sign}>Already got an account? <Text style={styles.signIn}>Sign In</Text></Text>
       </TouchableOpacity>
     </View>
   );
@@ -32,7 +32,11 @@ const styles = StyleSheet.create({
   },
   signIn: {
     textAlign: "center",
+    color: theme.colors.secondary,
   },
+  sign:{
+    textAlign: "center",
+  }
 });
 
 export default Signup;
