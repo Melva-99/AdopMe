@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import * as SplashScreen from "expo-splash-screen";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import Signin from "../../screens/Signin";
 import Signup from "../../screens/Signup";
 import Home from "../../screens/Home";
+import forgotPassword from "../../screens/forgotPassword";
 
 const Stack = createStackNavigator();
 
@@ -16,12 +16,6 @@ const Navigation = () => {
   useEffect(() => {
     persistLogin();
   }, []);
-
-  // Prevenir que se oculte la pantalla de splash
-  SplashScreen.preventAutoHideAsync();
-
-  // Ocultar la pantalla de splash al verificar que existe un token de inicio
-  if (!state.loading) SplashScreen.hideAsync();
 
   return (
     <NavigationContainer>
@@ -39,6 +33,7 @@ const Navigation = () => {
                 options={{ headerShown: false }}
               />
               <Stack.Screen name="Signup" component={Signup} />
+              <Stack.Screen name="forgotPassword" component={forgotPassword}  options={{headerShown: false,headerStyle:{backgroundColor:"#085A75"} }} />
             </Stack.Navigator>
           )}
         </>
