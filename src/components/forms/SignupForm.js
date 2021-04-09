@@ -41,7 +41,6 @@ const SignupForm = ({ navigation }) => {
       else setConfirmPasswordError(false);
     }
   };
-
   const handleSignup = () => {
     firebase
       .auth()
