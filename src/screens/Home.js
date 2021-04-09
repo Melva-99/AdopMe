@@ -10,7 +10,7 @@ const Home = ({ navigation }) => {
     <>
     <View style={styles.container}>
       <Text style={styles.titulo}>AdopMe</Text>
-      <Button buttonStyle={styles.button} title="Adopt"/>
+      <Button buttonStyle={styles.button} title="Adopt" onPress={() => {navigation.navigate("Adopt")}}/>
       <Button buttonStyle={styles.button} title="Put up for adoption"/>
       <Button buttonStyle={styles.button} title="Donate"/>
       <Button buttonStyle={styles.button} title="Sign Out" onPress={() => {signout()}}/>

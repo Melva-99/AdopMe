@@ -5,6 +5,7 @@ import { Context as AuthContext } from "../../providers/AuthContext";
 import Signin from "../../screens/Signin";
 import Signup from "../../screens/Signup";
 import Home from "../../screens/Home";
+import Adopt from "../../screens/Adopt";
 import forgotPassword from "../../screens/forgotPassword";
 
 const Stack = createStackNavigator();
@@ -24,6 +25,7 @@ const Navigation = () => {
           {state.loggedIn ? (
             <Stack.Navigator>
               <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Adopt" component={Adopt} />
             </Stack.Navigator>
           ) : (
             <Stack.Navigator>
