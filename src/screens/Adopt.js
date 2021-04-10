@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button, Text } from "react-native-elements";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, FlatList, TouchableOpacity, Image, Dimensions} from "react-native";
 import theme from "../theme";
 import { Context as AuthContext } from "../providers/AuthContext";
 import  {fetchAccessToken, fetchPets} from "../api";
-
+const width = Dimensions.get("screen");
 const Home = ({ navigation }) => {
   const [accessToken, setAccessToken] = useState("");
   const [newAccessToken, setNewAccessToken] = useState(false);
@@ -37,14 +37,24 @@ const Home = ({ navigation }) => {
 
   return (
     <>
-    <View> 
+    <View style={styles.card}> 
       {!newAccessToken && accessToken.length ? (
         <View>
           
           {!newPets && pets.length ? (
-          <View>
-            <Text>Id + {pets[0].id}</Text>
-            {console.log(pets)}
+          <View >
+            <FlatList
+              numColumns = {2}
+              keyExtractor = {(item) => item.id}
+              data={pets}
+              renderItem={({item}) =>(
+                <TouchableOpacity style={styles.container}>
+                  <Text style={styles.tittle}>{item.name}</Text>
+                  <Image style={styles.img} source={{uri: item.primary_photo_cropped ? item.primary_photo_cropped.small : "https://cdn0.iconfinder.com/data/icons/google-material-design-3-0/48/ic_pets_48px-256.png"}}/>
+                  <Text style={styles.subTittle}>{item.species}</Text>
+                </TouchableOpacity>
+              )}
+            />
           </View>
           ): null}
           
@@ -57,20 +67,43 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    marginTop:120,
+    textAlign: "center",
+    borderRadius: 6,
+    elevation: 3,
+    backgroundColor: '#fff',
+    shadowOffset:{width: 1, height: 1},
+    shadowColor: '#333',
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    marginHorizontal: 4,
+    marginVertical: 6,
   },
-  button:{
-    width: 150,
+  card: {
+    justifyContent: "center",
+    alignSelf: "center",
+  
+  },
+  tittle:{
+    width: "100%",
+    padding: 5,
     backgroundColor: theme.colors.secondary,
-    marginBottom:80,
-    borderRadius: 50,
+    color: "#fff",
+    borderRadius: 6,
     alignSelf: "center",
   },
-  titulo: {
-    textAlign: "center",
-    marginBottom:50,
-    fontSize:30,
+  img:{
+    height: 150,
+    width: 150,
+    marginHorizontal: 4,
+    marginVertical: 6,
+  },
+  subTittle:{
+    width: "100%",
+    backgroundColor: theme.colors.primary,
+    color: "#fff",
+    padding: 2,
+    borderRadius: 4,
+    alignSelf: "center",
   },
 });
 

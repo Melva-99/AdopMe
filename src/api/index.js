@@ -33,6 +33,6 @@ export const fetchPets = async  (accessToken) => {
       },
     });
   const data = await response.json();
-  
+  console.log(data.animals);
   return data.animals;
 };
