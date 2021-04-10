@@ -7,7 +7,8 @@ const theme = {
         secondary: "#085A75", /*Color azul oscuro */
         backgroundDark: "#000000", /*Color negro */
         gray:"#737576",
-        red:"#e94235"
+        red:"#e94235",
+        white: "#fff"
     },
 };
 

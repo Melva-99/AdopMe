@@ -22,8 +22,8 @@ export const fetchAccessToken = async () => {
         body: permiso
     });
     const data = await response.json();
-    
-    return data.access_token;
+    console.log(data);
+    return data;
   };
 export const fetchPets = async  (accessToken) => {
   const response = await fetch(
