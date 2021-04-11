@@ -22,10 +22,11 @@ const InformationAdopt = ({ route ,navigation }) => {
   return (
     <>
     <View>
-      {pet ? (
+      {!newPet && pet ? (
         <TouchableOpacity style={styles.container} >
           <Text style={styles.tittle}>{pet.name}</Text>
           <Image style={styles.img} source={{uri: pet.primary_photo_cropped ? pet.primary_photo_cropped.small : "https://cdn0.iconfinder.com/data/icons/google-material-design-3-0/48/ic_pets_48px-256.png"}}/>
+          <Text style={styles.desItemTittle}>Information General The Pet </Text>
           <Text style={styles.desItemTittle}>Age</Text>
           <Text style={styles.desTittle}>{pet.age}</Text>
           <Text style={styles.desItemTittle}>Gender</Text>
@@ -34,7 +35,17 @@ const InformationAdopt = ({ route ,navigation }) => {
           <Text style={styles.desTittle}>{pet.size}</Text>
           <Text style={styles.desItemTittle}>breeds</Text>
           <Text style={styles.desTittle}>{pet.breeds ? pet.breeds.primary : "error" }</Text>
-          <Text style={styles.subTittle}>Specie: {pet.species}</Text>
+          <Text style={styles.desItemTittle}>Specie</Text>
+          <Text style={styles.desTittle}>{pet.species}</Text>
+          <Text style={styles.desItemTittle}>Information Contact</Text>
+          <Text style={styles.desItemTittle}>Email</Text>
+          <Text style={styles.desTittle}>{pet.contact ? pet.contact.email : "error"}</Text>
+          <Text style={styles.desItemTittle}>Country</Text>
+          <Text style={styles.desTittle}>{pet.contact ? pet.contact.address.country : "error"}</Text>
+          <Text style={styles.desItemTittle}>State</Text>
+          <Text style={styles.desTittle}>{pet.contact ? pet.contact.address.state : "error"}</Text>
+          <Text style={styles.desItemTittle}>City</Text>
+          <Text style={styles.desTittle}>{pet.contact ? pet.contact.address.city : "error"}</Text>
         </TouchableOpacity>
       ): null}
       </View>
@@ -68,15 +79,7 @@ const styles = StyleSheet.create({
   },
   desTittle:{
     width: "100%",
-    padding: 5,
     backgroundColor: theme.colors.white,
-    color: theme.colors.backgroundDark,
-    alignSelf: "center",
-  },
-  desItemTittle:{
-    width: "100%",
-    padding: 5,
-    backgroundColor: theme.colors.primary,
     color: theme.colors.backgroundDark,
     alignSelf: "center",
     shadowOffset:{width: 2, height: 2},
@@ -86,9 +89,21 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     marginVertical: 6,
   },
+  desItemTittle:{
+    width: "100%",
+    backgroundColor: theme.colors.backgroundDark,
+    color: theme.colors.white,
+    alignSelf: "center",
+    shadowOffset:{width: 2, height: 2},
+    shadowColor: '#333',
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    marginHorizontal: 4,
+    marginVertical: 6,
+  },
   img:{
-    height: 150,
-    width: 150,
+    height: 200,
+    width: 200,
     marginHorizontal: 4,
     marginVertical: 6,
     alignSelf: "center",
