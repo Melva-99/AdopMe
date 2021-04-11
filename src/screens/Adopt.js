@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Button, Text } from "react-native-elements";
+import { Text } from "react-native-elements";
 import { StyleSheet, View, FlatList, TouchableOpacity, Image, Dimensions} from "react-native";
 import theme from "../theme";
-import { Context as AuthContext } from "../providers/AuthContext";
 import  {fetchAccessToken, fetchPets} from "../api";
 const width = Dimensions.get("screen");
 const Adopt = ({ navigation }) => {
@@ -47,10 +46,11 @@ const Adopt = ({ navigation }) => {
               keyExtractor = {(item) => item.id}
               data={pets}
               renderItem={({item}) =>(
-                <TouchableOpacity style={styles.container}>
+                <TouchableOpacity style={styles.container} onPress={() => {navigation.navigate("InformationAdopt", {id: item.id, accessToken: accessToken.access_token})}}>
                   <Text style={styles.tittle}>{item.name}</Text>
                   <Image style={styles.img} source={{uri: item.primary_photo_cropped ? item.primary_photo_cropped.small : "https://cdn0.iconfinder.com/data/icons/google-material-design-3-0/48/ic_pets_48px-256.png"}}/>
                   <Text style={styles.desTittle}>{item.age}</Text>
+                  <Text style={styles.desTittle}>{item.gender}</Text>
                   <Text style={styles.subTittle}>{item.species}</Text>
                 </TouchableOpacity>
               )}

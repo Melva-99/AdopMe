@@ -7,7 +7,7 @@ import Signup from "../../screens/Signup";
 import Home from "../../screens/Home";
 import Adopt from "../../screens/Adopt";
 import forgotPassword from "../../screens/forgotPassword";
-
+import InformationAdopt from "../../screens/InformationAdopt"
 const Stack = createStackNavigator();
 
 const Navigation = () => {
@@ -26,6 +26,7 @@ const Navigation = () => {
             <Stack.Navigator>
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Adopt" component={Adopt} />
+              <Stack.Screen name="InformationAdopt" component={InformationAdopt} />
             </Stack.Navigator>
           ) : (
             <Stack.Navigator>

@@ -15,7 +15,7 @@ export const fetchAccessToken = async () => {
     permiso.append("grant_type", params.grand_type);
     permiso.append("client_id", params.client_id);
     permiso.append("client_secret", params.client_secret);
-    
+
     const response = await fetch(`https://api.petfinder.com/v2/oauth2/token`,
     {
         method: "POST",
@@ -26,13 +26,28 @@ export const fetchAccessToken = async () => {
     return data;
   };
 export const fetchPets = async  (accessToken) => {
-  const response = await fetch(
-    "https://api.petfinder.com/v2/animals",{
-    headers:{
-      Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  const data = await response.json();
-  console.log(data.animals);
-  return data.animals;
+  if(accessToken){
+    const response = await fetch(
+      "https://api.petfinder.com/v2/animals",{
+      headers:{
+        Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    const data = await response.json();
+    console.log(data.animals);
+    return data.animals;
+  }
+};
+export const fetchPet = async (id, accessToken) => {
+  if(accessToken && id){
+    const response = await fetch(
+      `https://api.petfinder.com/v2/animals/${id}`,{
+      headers:{
+        Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    const data = await response.json();
+    console.log(data.animal);
+    return data.animal;
+  }
 };
