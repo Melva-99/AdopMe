@@ -71,11 +71,33 @@ const signout = (dispatch) => () => {
       dispatch({ type: "errorMessage", payload: error.message });
     });
 };
+//Guardar en el firestore la información de la mascota
+const createPet = (dispatch) => (petName, species, gender, reason, userid) => {
+  const data = {
+    uid:userid,
+    petName:petName,
+    species:species,
+    gender:gender,
+    reason:reason,
+  };
+      // Obtener la colección desde Firebase
+      const userData = firebase.firestore().collection("petData");
+      // Almacenar la información de la mascota que se va dar en adopción en Firestore
+      userData
+        .add(data)
+        .then((response) => {
+         
+          dispatch({ type: "errorMessage", payload: "" });
+        })
+        .catch((error) => {
+          dispatch({ type: "errorMessage", payload: error.message });
+        });
+    };
+   
 
 // Verifica si existe el token de firebase para iniciar sesión sin credenciales
 const persistLogin = (dispatch) => () => {
   const userRef = firebase.firestore().collection("users");
-
   // Si el usuario ya se ha autenticado previamente, retornar
   // la información del usuario, caso contrario,retonar un objeto vacío.
   firebase.auth().onAuthStateChanged((user) => {
@@ -176,6 +198,7 @@ export const { Provider, Context } = createDataContext(
     signout,
     persistLogin,
     signInWithGoogle,
+    createPet,
   },
   {
     user: {},
