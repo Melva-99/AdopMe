@@ -3,13 +3,13 @@ import { Button, Text, Input, CheckBox,} from "react-native-elements";
 import { StyleSheet, View } from "react-native";
 import { TextInput, Caption } from "react-native-paper";
 import theme from "../theme";
-import { Context as AuthContext } from "../providers/AuthContext";
 import { ScrollView } from "react-native-gesture-handler";
-import { firebase } from "../firebase";
-
+import firebase from "../firebase";
+import { Context as AuthContext } from "../providers/AuthContext";
+import Alert from "../shared/Alert";
 
 const putUpForAdoption = ({ navigation }) => {
-  const { signout } = useContext(AuthContext);
+  const { state, createPet } = useContext(AuthContext);
   const [checked, toggleChecked] = useState(false);
   const [petName, setPetName] = useState("");
   const [species, setSpecies] = useState("");
@@ -21,7 +21,7 @@ const putUpForAdoption = ({ navigation }) => {
   const [reasonError, setReasonError] = useState(false);
   const [error, setError] = useState("");
 
-  const handleVerify = (input) => {
+  const handle = (input) => {
     if (input === "petName") {
       // Verificar el nombre de la mascota
       if (!petName) setPetNameError(true);
@@ -41,10 +41,16 @@ const putUpForAdoption = ({ navigation }) => {
     }
   };
 
+  const handlePet = () => {
+    createPet(petName, species, gender, reason, state.user.id)
+    navigation.navigate("Home");
+    };
+
   return (
     <>
     <ScrollView>
     <View style={styles.container}>
+    {error ? <Alert type="error" title={error} /> : null}
         <Text style={styles.titulo}>AdopMe</Text>
         <Text style={styles.petData}>Pet data</Text>
         <Input 
@@ -52,7 +58,7 @@ const putUpForAdoption = ({ navigation }) => {
         value={petName}
         onChangeText={setPetName}
         onBlur={() => {
-          handleVerify("petName");
+          handle("petName");
         }}
         errorMessage={
           petNameError ? "Please, write the name of the pet" : ""
@@ -62,7 +68,7 @@ const putUpForAdoption = ({ navigation }) => {
         value={species}
         onChangeText={setSpecies}
         onBlur={() => {
-          handleVerify("species");
+          handle("species");
         }}
         errorMessage={
           speciesError ? "Please, write the pet species" : ""
@@ -72,7 +78,7 @@ const putUpForAdoption = ({ navigation }) => {
         value={gender}
         onChangeText={setGender}
         onBlur={() => {
-          handleVerify("gender");
+          handle("gender");
         }}
         errorMessage={
           genderError ? "Please, write the pet genre" : ""
@@ -88,13 +94,13 @@ const putUpForAdoption = ({ navigation }) => {
         value={reason}
         onChangeText={setReason}
         onBlur={() => {
-          handleVerify("reason");
+          handle("reason");
         }}
         error={reasonError}
       />
       {reasonError && (
         <Caption>Please, write down the reason for the adoption</Caption>)}
-        <Button buttonStyle={styles.button} title="Accept"/>
+        <Button buttonStyle={styles.button} title="Accept"  onPress={handlePet}/>
     </View>
     </ScrollView>
     </>
