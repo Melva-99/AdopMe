@@ -65,7 +65,7 @@ const Adopt = ({ navigation }) => {
         </View>
       ) : 
         <View>
-          <Text>Loading data</Text>
+          <Text>Loading token</Text>
         </View>
       }
     </View>

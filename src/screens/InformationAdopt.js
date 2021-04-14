@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Text } from "react-native-elements";
 import { StyleSheet, View, FlatList, TouchableOpacity, Image, Dimensions} from "react-native";
+import { Context as AuthContext } from "../providers/AuthContext";
 import theme from "../theme";
 import  {fetchPet} from "../api";
 
@@ -8,6 +9,15 @@ const InformationAdopt = ({ route ,navigation }) => {
     const [data, setData] = useState(route.params);
     const [pet, setPet] = useState([]);
     const [newPet, setNewPet] = useState(0);
+    const { state, createAdoptMe } = useContext(AuthContext);
+    const [error, setError] = useState("");
+
+    const handleAdoptPet = () => {
+        createAdoptMe(data.id, pet.name, state.user.id);
+        setError("The api have problem with data");
+        navigation.navigate("Home");
+    };
+  
     useEffect(() => {
       startSearchDefault();
     },[]);
@@ -46,6 +56,7 @@ const InformationAdopt = ({ route ,navigation }) => {
           <Text style={styles.desTittle}>{pet.contact ? pet.contact.address.state : "error"}</Text>
           <Text style={styles.desItemTittle}>City</Text>
           <Text style={styles.desTittle}>{pet.contact ? pet.contact.address.city : "error"}</Text>
+          <Button buttonStyle={styles.button} onPress={handleAdoptPet} title="Adopt me"/>
         </TouchableOpacity>
       ): null}
       </View>
@@ -64,6 +75,13 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     marginHorizontal: 4,
     marginVertical: 6,
+  },
+  button:{
+    width: 150,
+    backgroundColor: theme.colors.secondary,
+    marginBottom:80,
+    borderRadius: 50,
+    alignSelf: "center",
   },
   card: {
     justifyContent: "center",

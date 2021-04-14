@@ -166,7 +166,25 @@ const signInWithGoogle = (dispatch) => (googleUser) =>{
     }
   });
 }
-
+const createAdoptMe = (dispatch) => (petId, petName,userid) => {
+  const data = {
+    uid:userid,
+    petName: petName,
+    petId:petId,
+  };
+      // Obtener la colección desde Firebase
+      const userData = firebase.firestore().collection("getAdoptme");
+      // Almacenar la información de la mascota que se va dar en adopción en Firestore
+      userData
+        .add(data)
+        .then((response) => {
+         
+          dispatch({ type: "errorMessage", payload: "" });
+        })
+        .catch((error) => {
+          dispatch({ type: "errorMessage", payload: error.message });
+        });
+    };
 
 // Exportar las funcionalidades requeridas al contexto
 export const { Provider, Context } = createDataContext(
@@ -176,6 +194,7 @@ export const { Provider, Context } = createDataContext(
     signout,
     persistLogin,
     signInWithGoogle,
+    createAdoptMe,
   },
   {
     user: {},
