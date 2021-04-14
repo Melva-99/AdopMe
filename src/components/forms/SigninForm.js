@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { Button, Caption, TextInput } from "react-native-paper";
+import { StyleSheet, View,} from "react-native";
+import { Button,Input, } from "react-native-elements";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { validate } from "email-validator";
 import Alert from "../../shared/Alert";
 import { Context as AuthContext } from "../../providers/AuthContext";
+import theme from "../../theme/index";
 
 const SigninForm = () => {
   // Implementación del Context para funcionalidades de autenticación
@@ -42,23 +44,24 @@ const SigninForm = () => {
   return (
     <View>
       {error ? <Alert title={error} type="error" /> : null}
-      <TextInput
-        mode="outlined"
-        label="Email"
+      <Input
+        placeholder="   Email"
+        leftIcon={<Icon name="envelope" />}
         autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
         onBlur={() => {
           handleVerify("email");
         }}
-        error={emailError}
+        errorMessage={
+          emailError
+            ? "Please, write your email"
+            : null
+        }
       />
-      {emailError && (
-        <Caption>Por favor ingresa tu cuenta de correo electrónico</Caption>
-      )}
-      <TextInput
-        mode="outlined"
-        label="Password"
+      <Input
+        placeholder="   Password"
+        leftIcon={<Icon name="lock" />}
         autoCapitalize="none"
         secureTextEntry
         value={password}
@@ -66,12 +69,9 @@ const SigninForm = () => {
         onBlur={() => {
           handleVerify("password");
         }}
-        error={passwordError}
+        errorMessage={passwordError ? "Please, write your password" : null}
       />
-      {passwordError && <Caption>Por favor ingresa tu contraseña</Caption>}
-      <Button mode="contained" style={styles.button} onPress={handleSignin}>
-        Signin
-      </Button>
+      <Button title="Sign In" buttonStyle={styles.button} onPress={handleSignin}/>
     </View>
   );
 };
@@ -79,7 +79,11 @@ const SigninForm = () => {
 const styles = StyleSheet.create({
   button: {
     marginTop: 20,
+    borderRadius: 50,
     marginBottom: 20,
+    marginLeft:100,
+    marginRight:100,
+    backgroundColor: theme.colors.secondary,
   },
 });
 

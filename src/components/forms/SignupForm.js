@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { firebase } from "../../firebase";
 import { validate } from "email-validator";
 import Alert from "../../shared/Alert";
+import theme from "../../theme/index";
 
 const SignupForm = ({ navigation }) => {
   const [fullname, setFullname] = useState("");
@@ -135,11 +136,20 @@ const SignupForm = ({ navigation }) => {
             : ""
         }
       />
-      <Button title="Create account" onPress={handleSignup} />
+      <Button buttonStyle={styles.button} title="Create account" onPress={handleSignup} />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  button: {
+    marginTop: 20,
+    borderRadius: 50,
+    marginBottom: 20,
+    marginLeft:100,
+    marginRight:100,
+    backgroundColor: theme.colors.secondary,
+  },
+});
 
 export default SignupForm;

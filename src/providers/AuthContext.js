@@ -71,11 +71,76 @@ const signout = (dispatch) => () => {
       dispatch({ type: "errorMessage", payload: error.message });
     });
 };
+//Guardar en el firestore la información de la mascota
+const createPet = (dispatch) => (petName, species, gender, reason, userid) => {
+  const data = {
+    uid:userid,
+    petName:petName,
+    species:species,
+    gender:gender,
+    reason:reason,
+  };
+      // Obtener la colección desde Firebase
+      const userData = firebase.firestore().collection("petData");
+      // Almacenar la información de la mascota que se va dar en adopción en Firestore
+      userData
+        .add(data)
+        .then((response) => {
+         
+          dispatch({ type: "errorMessage", payload: "" });
+        })
+        .catch((error) => {
+          dispatch({ type: "errorMessage", payload: error.message });
+        });
+    };
+    //Guardar la informacion de donaciones
+    const createDonate = (dispatch) => (userid,nameCard,creditCardNumber,year,month,cvv,amount) => {
+      const data = {
+        uid:userid,
+        nameCard:nameCard,
+        creditCardNumber:creditCardNumber,
+        year:year,
+        month:month,
+        cvv:cvv,
+        amount:amount,
+      };
+          // Obtener la colección desde Firebase
+          const userData = firebase.firestore().collection("donateData");
+          // Almacenar la información de la mascota que se va dar en adopción en Firestore
+          userData
+            .add(data)
+            .then((response) => {
+             
+              dispatch({ type: "errorMessage", payload: "" });
+            })
+            .catch((error) => {
+              dispatch({ type: "errorMessage", payload: error.message });
+            });
+        };
+
+        const createAdoptMe = (dispatch) => (petId, petName,userid) => {
+          const data = {
+            uid:userid,
+            petName: petName,
+            petId:petId,
+          };
+              // Obtener la colección desde Firebase
+              const userData = firebase.firestore().collection("getAdoptme");
+              // Almacenar la información de la mascota que se va dar en adopción en Firestore
+              userData
+                .add(data)
+                .then((response) => {
+                 
+                  dispatch({ type: "errorMessage", payload: "" });
+                })
+                .catch((error) => {
+                  dispatch({ type: "errorMessage", payload: error.message });
+                });
+            };
 
 // Verifica si existe el token de firebase para iniciar sesión sin credenciales
 const persistLogin = (dispatch) => () => {
   const userRef = firebase.firestore().collection("users");
-
   // Si el usuario ya se ha autenticado previamente, retornar
   // la información del usuario, caso contrario,retonar un objeto vacío.
   firebase.auth().onAuthStateChanged((user) => {
@@ -101,6 +166,73 @@ const persistLogin = (dispatch) => () => {
   });
 };
 
+const isUserEqual = (googleUser, firebaseUser) => {
+  if (firebaseUser) {
+    const providerData = firebaseUser.providerData;
+    for (var i = 0; i < providerData.length; i++) {
+      if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+          providerData[i].uid === googleUser.getBasicProfile().getId()) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+const signInWithGoogle = (dispatch) => (googleUser) =>{
+  const unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
+    unsubscribe();
+    if (!isUserEqual(googleUser, firebaseUser)) {
+      const credential = firebase.auth.GoogleAuthProvider.credential(
+        googleUser.idToken,
+        googleUser.accessToken
+      );
+      firebase
+        .auth()
+        .signInWithCredential(credential)
+        .then((response) => {
+          const uid = response.user.uid;
+          const email = response.user.email
+          const fullname = response.user.displayName
+          const data = {
+            id: uid,
+            email,
+            fullname,
+          };
+          const usersRef = firebase.firestore().collection("users");
+          usersRef
+          .doc(uid)
+          .get()
+          .then((firestoreDocument) => {
+            if (!firestoreDocument.exists) {
+              usersRef
+                .doc(uid)
+                .set(data)
+                .then(() => {
+                  dispatch({
+                    type: "signup",
+                    payload: { user: data, registered: true },
+                  });
+                })
+                .catch((error) => {
+                  dispatch({ type: "errorMessage", payload: error.message });
+                });
+            } else {
+              dispatch({ type: "errorMessage", payload: "" });
+              dispatch({ type: "signin", payload: firestoreDocument.data() });
+            }
+          });
+        })
+        .catch((error) => { 
+          dispatch({ type: "errorMessage", payload: error.message });
+        });
+    } else {
+      console.log("User already signed-in Firebase.");
+    }
+  });
+}
+
+
 // Exportar las funcionalidades requeridas al contexto
 export const { Provider, Context } = createDataContext(
   authReducer,
@@ -108,6 +240,10 @@ export const { Provider, Context } = createDataContext(
     signin,
     signout,
     persistLogin,
+    signInWithGoogle,
+    createPet,
+    createDonate,
+    createAdoptMe,
   },
   {
     user: {},
