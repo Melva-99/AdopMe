@@ -4,13 +4,13 @@ import { StyleSheet, View } from "react-native";
 import { TextInput, Caption } from "react-native-paper";
 import theme from "../theme";
 import { ScrollView } from "react-native-gesture-handler";
-import firebase from "../firebase";
 import { Context as AuthContext } from "../providers/AuthContext";
 import Alert from "../shared/Alert";
 
 const putUpForAdoption = ({ navigation }) => {
   const { state, createPet } = useContext(AuthContext);
   const [checked, toggleChecked] = useState(false);
+  const [checked2, toggleChecked2] = useState(false);
   const [petName, setPetName] = useState("");
   const [species, setSpecies] = useState("");
   const [gender, setGender] = useState("");
@@ -41,19 +41,29 @@ const putUpForAdoption = ({ navigation }) => {
     }
   };
 
+
   const handlePet = () => {
-    createPet(petName, species, gender, reason, state.user.id)
-    navigation.navigate("Home");
+    if (!species && !gender && !petName && !reason){setError("Enter the pet information!");}
+    else if(!species){setSpeciesError(true)}
+    else if(!gender){setGenderError(true)}
+    else if(!petName) {setPetNameError(true)}
+    else if(!reason) {setReasonError(true)}
+    else{
+        setError("")
+        createPet(petName, species, gender, reason, state.user.id)
+        navigation.navigate("Home");
+      }
     };
 
   return (
     <>
     <ScrollView>
     <View style={styles.container}>
-    {error ? <Alert type="error" title={error} /> : null}
         <Text style={styles.titulo}>AdopMe</Text>
         <Text style={styles.petData}>Pet data</Text>
+        {error ? <Alert type="error" title={error} /> : null}
         <Input 
+        inputStyle={styles.inputs}
         placeholder="Pet's name"
         value={petName}
         onChangeText={setPetName}
@@ -64,6 +74,7 @@ const putUpForAdoption = ({ navigation }) => {
           petNameError ? "Please, write the name of the pet" : ""
         }/>
         <Input 
+        inputStyle={styles.inputs}
         placeholder="Species"
         value={species}
         onChangeText={setSpecies}
@@ -74,6 +85,7 @@ const putUpForAdoption = ({ navigation }) => {
           speciesError ? "Please, write the pet species" : ""
         }/>
         <Input 
+        inputStyle={styles.inputs}
         placeholder="Gender"
         value={gender}
         onChangeText={setGender}
@@ -85,7 +97,7 @@ const putUpForAdoption = ({ navigation }) => {
         }/>
         <Text style={styles.vacuna}>Vaccines</Text>
         <CheckBox containerStyle={styles.CheckBoxSi} title='Yes' checked={checked} onPress={() => toggleChecked(!checked)}/>
-        <CheckBox containerStyle={styles.CheckBoxNo} title='No' center checked={checked} onPress={() => toggleChecked(!checked)}/>
+        <CheckBox containerStyle={styles.CheckBoxNo} title='No'  checked={checked2} onPress={() => toggleChecked2(!checked2)}/>
         <TextInput
         style={styles.input}
         mode="outlined"
@@ -124,11 +136,13 @@ const styles = StyleSheet.create({
     marginBottom:30,
     fontSize:35,
     marginTop:-90,
+    color:theme.colors.secondary,
   },
   petData:{
       fontSize:30,
       textAlign: "center",
       marginBottom:30,
+      color:theme.colors.secondary,
   },
   CheckBoxNo:{
       marginTop:-50,
@@ -144,12 +158,17 @@ input:{
     height: 150,
     width:350,
     marginLeft:10,
+    backgroundColor: "#dbdbdb",
+  },
+  inputs:{
+    color: '#888',
   },
   vacuna:{
       textAlign:"center",
       fontSize:20,
       marginBottom:20,
       marginTop:20,
+      color:theme.colors.secondary,
   },
   button: {
     backgroundColor: theme.colors.secondary,
