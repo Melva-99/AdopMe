@@ -93,7 +93,29 @@ const createPet = (dispatch) => (petName, species, gender, reason, userid) => {
           dispatch({ type: "errorMessage", payload: error.message });
         });
     };
-   
+    //Guardar la informacion de donaciones
+    const createDonate = (dispatch) => (userid,nameCard,creditCardNumber,expiration,cvv,amount) => {
+      const data = {
+        uid:userid,
+        nameCard:nameCard,
+        creditCardNumber:creditCardNumber,
+        expiration:expiration,
+        cvv:cvv,
+        amount:amount,
+      };
+          // Obtener la colección desde Firebase
+          const userData = firebase.firestore().collection("donateData");
+          // Almacenar la información de la mascota que se va dar en adopción en Firestore
+          userData
+            .add(data)
+            .then((response) => {
+             
+              dispatch({ type: "errorMessage", payload: "" });
+            })
+            .catch((error) => {
+              dispatch({ type: "errorMessage", payload: error.message });
+            });
+        };
 
 // Verifica si existe el token de firebase para iniciar sesión sin credenciales
 const persistLogin = (dispatch) => () => {
@@ -199,6 +221,7 @@ export const { Provider, Context } = createDataContext(
     persistLogin,
     signInWithGoogle,
     createPet,
+    createDonate,
   },
   {
     user: {},
