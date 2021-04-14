@@ -9,7 +9,7 @@ const Home = ({ navigation }) => {
   return (
     <>
     <ScrollView>
-    <View style={styles.container}>
+     <View style={styles.container}>
       <View style={styles.tituloS}><Text style={styles.titulo}>Donate to the AdopMe Foundation for a third way to help pets</Text></View>
       <Text style={styles.subTitulo}>Have you donated to the AdopMe Foundation? Here are your top 4 reasons to consider donating.</Text>
       <View style={styles.info}>
@@ -23,7 +23,7 @@ const Home = ({ navigation }) => {
       <Text style={styles.cuentas}>2101 0420 10 1987367891</Text>
       <Text style={styles.cuentas}>2201 0980 10 7847287432</Text>
       <Button buttonStyle={styles.button} title=" Donate Online" onPress={() => {navigation.navigate("Donate Online")}} />
-    </View>
+     </View>
     </ScrollView>
     </>
   );
