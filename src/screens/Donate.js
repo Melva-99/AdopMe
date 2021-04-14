@@ -10,7 +10,7 @@ const Home = ({ navigation }) => {
     <>
     <ScrollView>
     <View style={styles.container}>
-      <Text style={styles.titulo}>Donate to the AdopMe Foundation for a third way to help pets</Text>
+      <View style={styles.tituloS}><Text style={styles.titulo}>Donate to the AdopMe Foundation for a third way to help pets</Text></View>
       <Text style={styles.subTitulo}>Have you donated to the AdopMe Foundation? Here are your top 4 reasons to consider donating.</Text>
       <View style={styles.info}>
       <Text style={styles.info}>1. It’s a great gift for your favorite pet-lover. Donate in honor of a loved one and we’ll send her or him a beautiful holiday card with a personal letter announcing your gift.</Text>
@@ -36,15 +36,27 @@ const styles = StyleSheet.create({
   },
   titulo: {
     textAlign: "center",
-    marginBottom:30,
+    marginBottom:20,
     fontSize:30,
     marginTop:-70,
     marginLeft:15,
     marginRight:15,
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.secondary,
+    color:theme.colors.blanco,
+    borderRadius:40,
+  },
+  tituloS:{
+    borderRadius:40,
+    backgroundColor: theme.colors.secondary,
+    marginLeft:15,
+    marginRight:15,
+    paddingTop:80,
+    marginTop:-80,
+    marginBottom:20,
   },
   subTitulo: {
     textAlign: "center",
+    color:theme.colors.secondary,
     fontSize:20,
     marginTop:-10,
   },
@@ -55,7 +67,9 @@ const styles = StyleSheet.create({
     marginLeft:15,
     marginRight:15,
     textAlign: "justify",
-    backgroundColor:theme.colors.primary,
+    backgroundColor:theme.colors.secondary,
+    color:theme.colors.blanco,
+    borderRadius:40,
   },
   button: {
     backgroundColor: theme.colors.secondary,
@@ -63,6 +77,7 @@ const styles = StyleSheet.create({
     marginLeft:60,
     marginRight:60,
     borderRadius: 50,
+    marginBottom:50,
   },
   cuentas:{
     fontSize:25,
